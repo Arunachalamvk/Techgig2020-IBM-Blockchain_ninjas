@@ -1,0 +1,51 @@
+<div class="d-flex ">
+  <div class="jumbotron jumbotron-fluid col .d-inline-flex p-2 bg-primary text-white  shadow-lg p-2 mb-5  rounded" style="width:500px;margin-left:500px;">
+    <h1 class="display-4" >Total Cases:</h1>
+    <hr class="my-4 shadow">
+    <p class="lead display-4 float-right bg-primary">{{total}}</p>
+  
+  </div>
+  
+  <div class="space"></div>
+  
+  <div class="jumbotron jumbotron-fluid col .d-flex p-2 shadow-lg p-2 mb-5 rounded bg-secondary text-white"  style="width:500px;margin-left:500px;">
+    <h1 class="display-4">Active Cases:</h1>
+    <hr class="my-4 ">
+    <p class="lead display-4 float-right">{{active}}</p>
+    
+  </div>
+  </div>
+  <div class="d-flex ">
+    <div class="jumbotron jumbotron-fluid col .d-flex p-2  shadow-lg p-2 mb-5  rounded bg-success text-white" style="width:500px;margin-left:500px;" >
+      <h1 class="display-4" >Recovered Cases:</h1>
+      <hr class="my-4 shadow">
+      <p class="lead display-4 float-right ">{{recovered}}</p>
+    
+    </div>
+    
+    <div class="space"></div>
+    
+    <div class="jumbotron jumbotron-fluid col .d-flex p-2 shadow-lg p-2 mb-5 rounded bg-danger text-white"  style="width:500px;margin-left:500px;">
+      <h1 class="display-4">Death Cases:</h1>
+      <hr class="my-4 ">
+      <p class="lead display-4 float-right">{{death}}</p>
+      
+    </div>
+    </div>
+  
+  
+    <table class="table table-striped table-bordered table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th *ngFor = "let head of tabhead" scope="col" style="text-align: center; vertical-align: middle;">{{head}}</th> 
+        </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor = "let key of val">
+      <td style="text-align: center; vertical-align: middle;" >{{ key.dis }}</td>
+      <td style="text-align: center; vertical-align: middle;">{{ key.count }}</td>
+      </tr>
+      </tbody>
+    </table>
+    
+    

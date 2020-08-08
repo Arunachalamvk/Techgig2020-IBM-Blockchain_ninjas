@@ -1,0 +1,136 @@
+namespace org.hyperledger_composer.scms
+enum Ailments {
+ o Bloodpressure
+ o Cardio
+ o pneumonia
+ o TB
+ o Cancer
+ o Diabetes
+}
+enum Symptoms {
+ o Drycough
+ o Fever
+ o Headache
+}
+enum Location{
+o Chennai
+o Coimbatore
+o Salem
+o Kanchipuram
+o Theni
+o Karur
+o Tiruppur
+o Nilgris
+o Dharmapuri
+o Villupuram
+}
+enum Status{
+o Testing
+o Negative
+o Positive
+}
+enum Specialization {
+o Heartsurgeon
+o Pulmonology
+o Diabetology
+o Ent
+o Pediatric
+}
+enum Remarks {
+o Testing
+o Hospitalized
+o Selfquarantined
+}
+enum OrderStatus {
+o INITIATED
+o CONFIRMED
+o DELIVERING
+o DELIVERED
+}
+concept Trace {
+o DateTime timestamp
+--> Participant  company
+}
+ 
+
+asset Patient identified by patientId {
+ o String patientId
+ o String name
+ o Integer contactno
+ o Location location
+ o Symptoms[] symptoms
+ o Ailments[] ailments
+ o String link
+ --> Participant hospital
+ --> Participant doctor
+ o Status status
+ o Remarks remarks default="Testing"
+ o DateTime date
+ o Integer day default=0
+}
+asset Medicine identified by medicineid {
+o String medicineid
+o String name
+o String description
+o Double quantity
+o Trace[] trace
+--> Participant owner 
+--> Participant issuer
+}
+asset PO identified by orderid {
+o String orderid
+o Medicine medicineid
+o OrderStatus orderStatus
+--> Participant orderer
+--> Participant vendor
+}
+ 
+participant Doctor identified by doctorId {
+ o String doctorId
+ o String Name
+ o Specialization specialization
+ -->Participant hospital
+}
+  participant Manufacturer identified by manufacturerId {
+  o String manufacturerId
+ o String Name
+ o Location location
+}
+  participant Distributor identified by distributorId {
+  o String distributorId
+  o String Name
+ o Location location
+}
+participant Hospital identified by approvalId {
+ o String approvalId
+ o String hospitalName
+ o Location location
+ o Integer quantity default=0 
+ o Integer requirements default=50 
+}
+transaction MoveProduct {
+ --> Patient patient
+ o Status status
+ o Remarks remarks
+ o DateTime date
+}
+transaction InitiatePO {
+o String orderId
+o Medicine medicineid
+--> Participant orderer 
+--> Participant vendor
+}
+ 
+transaction TransferCommodity {
+--> Medicine commodity
+  o Integer quantity
+--> Participant issuer
+--> Participant newOwner
+}
+  transaction TransferCommodityHospital {
+--> Medicine commodity
+ --> Hospital hospital 
+  o Integer quantity
+--> Participant issuer
+--> Participant newOwner
+}
